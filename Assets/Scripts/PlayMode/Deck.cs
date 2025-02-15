@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour
+public class Deck
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Unit> Units { get; private set; }
+
+    public Deck()
     {
-        
+        Units = new List<Unit>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddUnit(Unit unit)
     {
-        
+        Units.Add(unit);
     }
+
+    public void RemoveUnit(Unit unit)
+    {
+        Units.Remove(unit);
+    }
+
 }

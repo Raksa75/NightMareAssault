@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class NightmareController : MonoBehaviour
+public class Unit : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private SplineAnimate m_splineAnimate;
