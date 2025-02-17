@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
 
     private void OpenShop()
     {
-        // You can add functionality to open the shop scene or UI here.
+        SceneManager.LoadScene("Shop");
         Debug.Log("Shop button clicked");
     }
 }

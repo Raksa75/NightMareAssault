@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2117d5cd1d42a75408fea0ccd61c4b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generateButton: {fileID: 1311466563}
+  gachaButton: {fileID: 1311466563}
   resultText: {fileID: 1614431429}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
