@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public int Damage;
-    public float Range;
+    public float HP;
     public float FireRate;
 
     private float nextFireTime;

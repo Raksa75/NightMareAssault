@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
 
     private void PlayGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("DeckBuilding");
     }
 
     private void OpenShop()
