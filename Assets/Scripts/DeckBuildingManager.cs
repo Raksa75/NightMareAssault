@@ -1,3 +1,7 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
 public class DeckBuildingManager : MonoBehaviour
 {
     public GameObject unitPrefab;
@@ -9,9 +13,6 @@ public class DeckBuildingManager : MonoBehaviour
 
     private void Start()
     {
-        playerCollection = GameManager.PlayerCollection;
-        playerDeck = GameManager.LoadDeck();
-
         foreach (Unit unit in playerCollection)
         {
             GameObject unitGO = Instantiate(unitPrefab, collectionContainer);
@@ -34,10 +35,5 @@ public class DeckBuildingManager : MonoBehaviour
         GameObject unitGO = Instantiate(unitPrefab, deckContainer);
         unitGO.GetComponentInChildren<Text>().text = unit.Name;
         unitGO.GetComponent<UnitDragHandler>().Setup(unit, this);
-    }
-
-    private void OnDisable()
-    {
-        GameManager.SaveDeck(playerDeck);
     }
 }

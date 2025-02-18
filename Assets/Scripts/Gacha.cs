@@ -1,51 +1,52 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
+using UnityEngine.UI; // Nécessaire pour les éléments UI standards
+using TMPro; // Nécessaire si tu utilises TextMeshPro
 
-public class Gacha : MonoBehaviour
+public class GachaUI : MonoBehaviour
 {
-    public Button gachaButton;
-    public Text resultText;
-    private List<Unit> allUnits;
+    // Références aux éléments UI
+    public Button gachaButton;  // Le bouton qui déclenche le tirage
+    public Text resultText;     // Le texte qui affichera le résultat (si tu utilises TextMeshPro, remplace par TextMeshProUGUI)
 
-    private void Start()
+    // Nombre de personnages possibles
+    private int totalCharacters = 15;
+
+    // Table des personnages
+    private string[] characterNames = new string[] {
+        "Personnage 1", "Personnage 2", "Personnage 3", "Personnage 4", "Personnage 5",
+        "Personnage 6", "Personnage 7", "Personnage 8", "Personnage 9", "Personnage 10",
+        "Personnage 11", "Personnage 12", "Personnage 13", "Personnage 14", "Personnage 15"
+    };
+
+    void Start()
     {
-        gachaButton.onClick.AddListener(GenerateRandomUnits);
-        allUnits = new List<Unit>();
-
-        // Initialisez la liste des personnages numérotés de 1 à 15
-        for (int i = 1; i <= 15; i++)
+        // Vérifie que les références sont bien assignées
+        if (gachaButton == null || resultText == null)
         {
-            allUnits.Add(new Unit { Name = "Unité " + i });
+            Debug.LogError("Les références UI ne sont pas assignées correctement dans l'inspecteur.");
+            return; // Si les références manquent, on sort de la méthode Start pour éviter les erreurs suivantes
         }
+
+        // Assigner la fonction de tirage à l'événement du bouton
+        gachaButton.onClick.AddListener(LancerGacha);
     }
 
-    private void GenerateRandomUnits()
+    public void LancerGacha()
     {
-        List<Unit> randomUnits = new List<Unit>();
+        // Générer un numéro aléatoire entre 0 et totalCharacters-1
+        int personnageId = Random.Range(0, totalCharacters); 
 
-        for (int i = 0; i < 10; i++)
+        // Vérifier dans la console si le personnage est bien choisi
+        Debug.Log("Personnage choisi : " + personnageId + " - " + characterNames[personnageId]);
+
+        // Afficher le résultat dans le texte UI
+        if (resultText != null)
         {
-            int randomIndex = Random.Range(0, allUnits.Count);
-            Unit randomUnit = new Unit { Name = allUnits[randomIndex].Name };
-            randomUnits.Add(randomUnit);
+            resultText.text = "Tu as tiré : " + characterNames[personnageId];
         }
-
-        DisplayUnits(randomUnits);
-
-        // Ajouter les unités obtenues à la collection du joueur via GameManager
-        foreach (Unit unit in randomUnits)
+        else
         {
-            GameManager.AddUnitToCollection(unit);
-        }
-    }
-
-    private void DisplayUnits(List<Unit> units)
-    {
-        resultText.text = "Personnages obtenus : ";
-        foreach (Unit unit in units)
-        {
-            resultText.text += unit.Name + " ";
+            Debug.LogError("Le Text (UI) n'est pas référencé dans le script.");
         }
     }
 }
