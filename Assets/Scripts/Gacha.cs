@@ -1,52 +1,51 @@
 using UnityEngine;
-using UnityEngine.UI; // Nécessaire pour les éléments UI standards
-using TMPro; // Nécessaire si tu utilises TextMeshPro
+using UnityEngine.UI;
 
-public class GachaUI : MonoBehaviour
+public class Gacha : MonoBehaviour
 {
-    // Références aux éléments UI
-    public Button gachaButton;  // Le bouton qui déclenche le tirage
-    public Text resultText;     // Le texte qui affichera le résultat (si tu utilises TextMeshPro, remplace par TextMeshProUGUI)
+    public Button gachaButton;      // Le bouton de lancement du gacha
+    public Text resultText;         // Le texte qui affichera le résultat
+    public Text gemmesText;         // Le texte qui affiche le nombre de gemmes restantes
+    public HardCurrencyManager currencyManager; // Référence au gestionnaire des gemmes
 
-    // Nombre de personnages possibles
-    private int totalCharacters = 15;
-
-    // Table des personnages
-    private string[] characterNames = new string[] {
-        "Personnage 1", "Personnage 2", "Personnage 3", "Personnage 4", "Personnage 5",
-        "Personnage 6", "Personnage 7", "Personnage 8", "Personnage 9", "Personnage 10",
-        "Personnage 11", "Personnage 12", "Personnage 13", "Personnage 14", "Personnage 15"
-    };
+    private int gemmesRequired = 5; // Nombre de gemmes nécessaires pour lancer le gacha
 
     void Start()
     {
-        // Vérifie que les références sont bien assignées
-        if (gachaButton == null || resultText == null)
-        {
-            Debug.LogError("Les références UI ne sont pas assignées correctement dans l'inspecteur.");
-            return; // Si les références manquent, on sort de la méthode Start pour éviter les erreurs suivantes
-        }
-
-        // Assigner la fonction de tirage à l'événement du bouton
+        // Assigner la fonction de lancement du gacha au bouton
         gachaButton.onClick.AddListener(LancerGacha);
+
+        // Mettre à jour l'UI initiale
+        MettreAJourUI();
     }
 
+    // Lancer le gacha
     public void LancerGacha()
     {
-        // Générer un numéro aléatoire entre 0 et totalCharacters-1
-        int personnageId = Random.Range(0, totalCharacters); 
-
-        // Vérifier dans la console si le personnage est bien choisi
-        Debug.Log("Personnage choisi : " + personnageId + " - " + characterNames[personnageId]);
-
-        // Afficher le résultat dans le texte UI
-        if (resultText != null)
+        // Vérifier si le joueur a assez de gemmes
+        if (currencyManager.HasEnoughCurrency(gemmesRequired))
         {
-            resultText.text = "Tu as tiré : " + characterNames[personnageId];
+            // Consommer 5 gemmes
+            currencyManager.ConsumeCurrency(gemmesRequired);
+
+            // Lancer le gacha (logique existante)
+            int personnageId = Random.Range(0, 15); // Exemple : tirer un personnage au hasard
+            resultText.text = "Tu as tiré : Personnage " + (personnageId + 1); // Affichage du tirage
+
+            // Mettre à jour l'UI
+            MettreAJourUI();
         }
         else
         {
-            Debug.LogError("Le Text (UI) n'est pas référencé dans le script.");
+            // Afficher le message d'erreur "Pas assez de gemmes"
+            resultText.text = "Pas assez de gemmes";
         }
+    }
+
+    // Mettre à jour l'affichage des gemmes et du texte
+    void MettreAJourUI()
+    {
+        // Afficher le nombre de gemmes restantes dans l'UI
+        gemmesText.text = "Gems: " + currencyManager.playerHardCurrency;
     }
 }
