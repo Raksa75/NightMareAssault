@@ -2583,6 +2583,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614431427}
   m_CullTransparentMesh: 1
+--- !u!1 &1692695275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1692695276}
+  - component: {fileID: 1692695277}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1692695276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692695275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 791.58813, y: 1079.808, z: -13.194309}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1692695277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692695275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b07b3e302740394cb8aefa7c7da64df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1700568106
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,7 +2793,9 @@ MonoBehaviour:
   purchaseButton: {fileID: 827466229}
   buttonText: {fileID: 1779295089}
   currencyManager: {fileID: 949964216}
+  inventoryManager: {fileID: 1692695277}
   itemCost: 25
+  itemName: Personnage A
 --- !u!4 &1732967346
 Transform:
   m_ObjectHideFlags: 0
@@ -3222,7 +3268,7 @@ GameObject:
   - component: {fileID: 2030767439}
   - component: {fileID: 2030767440}
   m_Layer: 0
-  m_Name: Gacha Manager
+  m_Name: Gacha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3259,6 +3305,7 @@ MonoBehaviour:
   resultText: {fileID: 1614431429}
   gemmesText: {fileID: 1844365476}
   currencyManager: {fileID: 1354463842}
+  inventoryManager: {fileID: 1692695277}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3271,3 +3318,4 @@ SceneRoots:
   - {fileID: 2030767439}
   - {fileID: 543189628}
   - {fileID: 1732967346}
+  - {fileID: 1692695276}

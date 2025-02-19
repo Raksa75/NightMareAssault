@@ -6,8 +6,10 @@ public class ShopItem : MonoBehaviour
     public Button purchaseButton;           // Le bouton pour acheter le personnage
     public Text buttonText;                 // Le texte du bouton (affiche "Acheter" ou "Déjà acheté")
     public SoftCurrencyManager currencyManager; // Référence au gestionnaire des coins
+    public InventoryManager inventoryManager;   // Référence à l'inventaire
     public int itemCost = 25;               // Coût du personnage en coins (25 dans cet exemple)
     private bool isItemBought = false;      // Vérifie si l'élément a été acheté
+    public string itemName = "Personnage 1"; // Nom de l'élément acheté
 
     private void Start()
     {
@@ -35,6 +37,12 @@ public class ShopItem : MonoBehaviour
                 currencyManager.playerSoftCurrency -= itemCost;  // Déduire les coins
                 isItemBought = true;
                 UpdateButtonText(); // Mettre à jour le texte du bouton
+
+                // Ajouter l'élément acheté à l'inventaire
+                inventoryManager.AddUnit(itemName);
+
+                // Afficher un message pour indiquer que l'achat a été effectué
+                Debug.Log(itemName + " a été ajouté à ton inventaire.");
             }
             else
             {

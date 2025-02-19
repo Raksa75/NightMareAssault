@@ -7,6 +7,7 @@ public class Gacha : MonoBehaviour
     public Text resultText;         // Le texte qui affichera le résultat
     public Text gemmesText;         // Le texte qui affiche le nombre de gemmes restantes
     public HardCurrencyManager currencyManager; // Référence au gestionnaire des gemmes
+    public InventoryManager inventoryManager;   // Référence à l'inventaire
 
     private int gemmesRequired = 5; // Nombre de gemmes nécessaires pour lancer le gacha
 
@@ -30,7 +31,11 @@ public class Gacha : MonoBehaviour
 
             // Lancer le gacha (logique existante)
             int personnageId = Random.Range(0, 15); // Exemple : tirer un personnage au hasard
-            resultText.text = "Tu as tiré : Personnage " + (personnageId + 1); // Affichage du tirage
+            string personnageNom = "Personnage " + (personnageId + 1); // Affichage du nom du personnage tiré
+            resultText.text = "Tu as tiré : " + personnageNom;
+
+            // Ajouter l'unité obtenue à l'inventaire
+            inventoryManager.AddUnit(personnageNom);
 
             // Mettre à jour l'UI
             MettreAJourUI();
@@ -46,6 +51,6 @@ public class Gacha : MonoBehaviour
     void MettreAJourUI()
     {
         // Afficher le nombre de gemmes restantes dans l'UI
-        gemmesText.text = "Gems: " + currencyManager.playerHardCurrency;
+        gemmesText.text = "Gemmes : " + currencyManager.playerHardCurrency;
     }
 }
