@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Splines;
 
 
-    public class Unit
+    public class Unit : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private SplineAnimate m_splineAnimate;
