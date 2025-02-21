@@ -4,14 +4,13 @@ public class GameInitializer : MonoBehaviour
 {
     private void Awake()
     {
-        // Initialiser les collections et decks si nécessaire
-        if (GameManager.PlayerCollection.Count == 0)
+        // Initialiser les collections et decks si nÃ©cessaire
+        if (GameManager.Instance.PlayerCollection.Count == 0)
         {
-            // Initialiser avec des données de test ou laisser vide pour le début du jeu
-            for (int i = 1; i <= 5; i++)
-            {
-                GameManager.AddUnitToCollection(new Unit { Name = "Unité " + i });
-            }
+            Debug.Log("Ajout d'unitÃ©s de test Ã  la collection !");
+            GameManager.Instance.AddUnitToCollection(Resources.Load<UnitData>("Units/Chevalier"));
+            GameManager.Instance.AddUnitToCollection(Resources.Load<UnitData>("Units/Archer"));
+            GameManager.Instance.AddUnitToCollection(Resources.Load<UnitData>("Units/Mage"));
         }
     }
 }

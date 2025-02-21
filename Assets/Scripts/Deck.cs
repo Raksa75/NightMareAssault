@@ -1,24 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Deck
 {
-    public List<Unit> Units { get; private set; }
+    public List<UnitData> Units { get; private set; }
 
     public Deck()
     {
-        Units = new List<Unit>();
+        Units = new List<UnitData>();
     }
 
-    public void AddUnit(Unit unit)
+    public void AddUnit(UnitData unit)
     {
         Units.Add(unit);
     }
 
-    public void RemoveUnit(Unit unit)
+    public void RemoveUnit(UnitData unit)
     {
         Units.Remove(unit);
     }
-
 }

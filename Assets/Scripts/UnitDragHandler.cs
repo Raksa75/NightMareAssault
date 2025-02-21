@@ -3,19 +3,21 @@ using UnityEngine.EventSystems;
 
 public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private Unit unit;
+    private UnitData unitData;
     private DeckBuildingManager deckBuildingManager;
     private CanvasGroup canvasGroup;
+    private Vector3 originalPosition;
 
-    public void Setup(Unit unit, DeckBuildingManager manager)
+    public void Setup(UnitData unitData, DeckBuildingManager manager)
     {
-        this.unit = unit;
+        this.unitData = unitData;
         this.deckBuildingManager = manager;
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        originalPosition = transform.position;
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
     }
@@ -27,13 +29,27 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("ðŸ”¹ OnEndDrag appelÃ© pour : " + unitData.Name);
+
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
-        if (eventData.pointerEnter != null && eventData.pointerEnter.transform == deckBuildingManager.deckContainer)
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+        if (hit.collider != null && hit.collider.CompareTag("Lane"))
         {
-            deckBuildingManager.AddUnitToDeck(unit);
-            Destroy(gameObject); // Supprime l'unité de la collection après l'ajout au deck
+            Lane lane = hit.collider.GetComponent<Lane>();
+
+            if (lane != null)
+            {
+                lane.PlaceUnit(unitData);
+                deckBuildingManager.RemoveCardFromHand(unitData);
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            transform.position = originalPosition;
         }
     }
 }

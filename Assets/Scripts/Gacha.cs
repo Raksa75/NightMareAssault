@@ -6,46 +6,46 @@ public class Gacha : MonoBehaviour
 {
     public Button gachaButton;
     public Text resultText;
-    private List<Unit> allUnits;
+    private List<UnitData> allUnits;
 
     private void Start()
     {
         gachaButton.onClick.AddListener(GenerateRandomUnits);
-        allUnits = new List<Unit>();
+        allUnits = new List<UnitData>();
 
-        // Initialisez la liste des personnages numérotés de 1 à 15
-        for (int i = 1; i <= 15; i++)
-        {
-            allUnits.Add(new Unit { Name = "Unité " + i });
-        }
+        // Charge les unitÃ©s disponibles depuis le dossier Resources
+        allUnits.Add(Resources.Load<UnitData>("Units/Chevalier"));
+        allUnits.Add(Resources.Load<UnitData>("Units/Archer"));
+        allUnits.Add(Resources.Load<UnitData>("Units/Mage"));
     }
 
     private void GenerateRandomUnits()
     {
-        List<Unit> randomUnits = new List<Unit>();
+        List<UnitData> randomUnits = new List<UnitData>();
 
         for (int i = 0; i < 10; i++)
         {
             int randomIndex = Random.Range(0, allUnits.Count);
-            Unit randomUnit = new Unit { Name = allUnits[randomIndex].Name };
+            UnitData randomUnit = allUnits[randomIndex];
             randomUnits.Add(randomUnit);
         }
 
         DisplayUnits(randomUnits);
 
-        // Ajouter les unités obtenues à la collection du joueur via GameManager
-        foreach (Unit unit in randomUnits)
+        // Ajouter les unitÃ©s obtenues Ã  la collection du joueur via GameManager
+        foreach (UnitData unit in randomUnits)
         {
-            GameManager.AddUnitToCollection(unit);
+            GameManager.Instance.AddUnitToCollection(unit);
         }
     }
 
-    private void DisplayUnits(List<Unit> units)
+private void DisplayUnits(List<UnitData> units)
+{
+    resultText.text = "Personnages obtenus : ";
+    foreach (UnitData unit in units)
     {
-        resultText.text = "Personnages obtenus : ";
-        foreach (Unit unit in units)
-        {
-            resultText.text += unit.Name + " ";
-        }
+        resultText.text += unit.Name + " "; // Correction ici
     }
+}
+
 }

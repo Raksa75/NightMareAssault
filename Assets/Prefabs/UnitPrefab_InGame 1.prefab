@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5848053761023996446}
   - component: {fileID: 6596434430511172110}
   m_Layer: 0
-  m_Name: UnitPrefab_InGame
+  m_Name: UnitPrefab_InGame 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7df7584073539614cb5350502217d4b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f001b3f08bd2f3b42a66b2bac09ae7ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,18 +119,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.08993602, y: 0.024527311}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.57, y: 2.79}
+    oldSize: {x: 2.6, y: 3.84}
     newSize: {x: 3.57, y: 2.79}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.57, y: 2.79}
+  m_Size: {x: 3.063087, y: 4.2780347}
   m_EdgeRadius: 0
 --- !u!50 &5848053761023996446
 Rigidbody2D:

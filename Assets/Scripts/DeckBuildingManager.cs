@@ -4,44 +4,75 @@ using UnityEngine.UI;
 
 public class DeckBuildingManager : MonoBehaviour
 {
-    public GameObject unitPrefab;
-    public Transform collectionContainer;
-    public Transform deckContainer;
+    public GameObject unitPrefab; // Prefab UI d'une carte affichée en bas
+    public Transform handContainer; // Conteneur UI des cartes en bas
+    public int maxHandSize = 3; // Nombre max de cartes affichées en même temps
 
-    private List<Unit> playerCollection;
+    private List<UnitData> playerCollection;
     private Deck playerDeck;
+    private List<UnitData> currentHand = new List<UnitData>(); // Cartes visibles en bas
 
     private void Start()
     {
-        playerCollection = GameManager.PlayerCollection;
-        playerDeck = GameManager.LoadDeck();
+        GameManager.Instance.InitializeCollection();
 
-        foreach (Unit unit in playerCollection)
+        playerCollection = GameManager.Instance.PlayerCollection;
+        playerDeck = GameManager.Instance.LoadDeck();
+
+        Debug.Log("Unités dans la collection après init : " + playerCollection.Count);
+
+        if (playerDeck.Units.Count == 0)
         {
-            GameObject unitGO = Instantiate(unitPrefab, collectionContainer);
-            unitGO.GetComponentInChildren<Text>().text = unit.Name;
-            unitGO.GetComponent<UnitDragHandler>().Setup(unit, this);
+            Debug.LogWarning("Le deck est vide !");
+            return;
+        }
+
+        for (int i = 0; i < maxHandSize; i++)
+        {
+            DrawNewCard();
         }
     }
 
-    public void AddUnitToCollection(Unit unit)
+public void DrawNewCard()
+{
+    if (playerDeck.Units.Count > 0 && currentHand.Count < maxHandSize)
     {
-        playerCollection.Add(unit);
-        GameObject unitGO = Instantiate(unitPrefab, collectionContainer);
-        unitGO.GetComponentInChildren<Text>().text = unit.Name;
-        unitGO.GetComponent<UnitDragHandler>().Setup(unit, this);
+        UnitData newUnit = playerDeck.Units[0]; // Prend la première unité du deck
+
+        // Vérifier si l'unité est déjà dans la main
+        while (currentHand.Contains(newUnit) && playerDeck.Units.Count > 1)
+        {
+            playerDeck.Units.RemoveAt(0);
+            playerDeck.Units.Add(newUnit); // Remet la carte à la fin du deck
+            newUnit = playerDeck.Units[0]; // Prend la nouvelle première carte
+        }
+
+        playerDeck.Units.RemoveAt(0);
+        currentHand.Add(newUnit);
+        CreateUnitUI(newUnit, handContainer);
+    }
+    else
+    {
+        Debug.LogWarning("Plus de cartes disponibles dans le deck !");
+    }
+}
+
+
+    private void CreateUnitUI(UnitData unit, Transform container)
+    {
+        GameObject unitGO = Instantiate(unitPrefab, container);
+        Debug.Log("Carte affichée en main : " + unit.Name);
+
+        Text unitText = unitGO.GetComponentInChildren<Text>();
+        if (unitText != null)
+        {
+            unitText.text = unit.Name;
+        }
     }
 
-    public void AddUnitToDeck(Unit unit)
+    public void RemoveCardFromHand(UnitData unit)
     {
-        playerDeck.AddUnit(unit);
-        GameObject unitGO = Instantiate(unitPrefab, deckContainer);
-        unitGO.GetComponentInChildren<Text>().text = unit.Name;
-        unitGO.GetComponent<UnitDragHandler>().Setup(unit, this);
-    }
-
-    private void OnDisable()
-    {
-        GameManager.SaveDeck(playerDeck);
+        currentHand.Remove(unit);
+        DrawNewCard();
     }
 }
