@@ -1,3 +1,7 @@
+using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
 public class DeckBuildingManager : MonoBehaviour
 {
     public GameObject unitPrefab;
